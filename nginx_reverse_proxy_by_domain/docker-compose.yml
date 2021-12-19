@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  app1:
+    build:
+      context: docker/app1/
+    volumes:
+      - ./docker/app1/file/server.conf:/etc/nginx/conf.d/server.conf
+      - ./src/app1:/data/html
+  app2:
+    build:
+      context: docker/app2/
+    volumes:
+      - ./docker/app2/file/server.conf:/etc/nginx/conf.d/server.conf
+      - ./src/app2:/data/html
+  proxy:
+    build:
+      context: docker/proxy/
+    ports:
+      - "3000:80"
+    volumes:
+      - ./docker/proxy/file/server.conf:/etc/nginx/conf.d/server.conf
