@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: docker/app/
+      # Use host network because sometimes the build fails and the following message is output.
+      # > Failed to fetch http://deb.debian.org/debian/pool/main/b/bzip2/bzip2_1.0.8-4_amd64.deb  Temporary failure resolving 'deb.debian.org'
+      network: host
+    ports:
+      - "3000:80"
+    volumes:
+      - ./docker/app/file/server.conf:/etc/nginx/conf.d/server.conf
+      - ./src/app:/data/html
